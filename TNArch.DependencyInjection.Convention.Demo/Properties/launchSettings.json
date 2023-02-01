@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "TNArch.DependencyInjection.Convention.Demo": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
