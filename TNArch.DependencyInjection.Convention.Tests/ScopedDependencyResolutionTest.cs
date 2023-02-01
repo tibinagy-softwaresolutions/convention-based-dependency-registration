@@ -104,12 +104,11 @@ namespace TNArch.DependencyInjection.Convention.Tests
         [Test]
         public void GetMultipleServices_Scope3Filter_DefaultServicesResolved()
         {
-            var servicesInScope3 = _serviceProvider.CreateScope("Scope3").ServiceProvider.GetServices<ITestDependency>().Where(s => s != null).OrderBy(s => s.GetType().Name).ToArray();
+            var servicesInScope = _serviceProvider.CreateScope("Scope3").ServiceProvider.GetServices<ITestDependency>().Where(s => s != null).OrderBy(s => s.GetType().Name).ToArray();
 
-
-            servicesInScope3.Count().Should().Be(2);
-            servicesInScope3[0].Should().BeOfType<TestDependency>();
-            servicesInScope3[1].Should().BeOfType<TestDependency2>();
+            servicesInScope.Count().Should().Be(2);
+            servicesInScope[0].Should().BeOfType<TestDependency>();
+            servicesInScope[1].Should().BeOfType<TestDependency2>();
         }
 
         [Test]
