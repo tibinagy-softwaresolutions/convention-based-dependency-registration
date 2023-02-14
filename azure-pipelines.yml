@@ -39,4 +39,19 @@ steps:
   name: test
   inputs:
     command: 'test'
-    projects: '**/TNArch.DependencyInjection.Convention.Tests.csproj'
+    projects: '**/TNArch.DependencyInjection.Convention.csproj'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'pack'
+    packagesToPack: '**/TNArch.DependencyInjection.Convention.'
+    versioningScheme: 'byBuildNumber'
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'Nuget.OrgPublish'
+
+
