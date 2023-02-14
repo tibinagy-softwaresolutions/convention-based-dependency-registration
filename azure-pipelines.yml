@@ -2,7 +2,7 @@
 # Build and run tests for .NET Desktop or Windows classic desktop solutions.
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
-
+name: $(nugetVersion)
 trigger:
 - main
 
@@ -13,6 +13,10 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  major: '1'
+  minor: '0'
+  revision: $[counter(variables['minor'], 1)]
+  nugetVersion: '$(major).$(minor).$(revision)'
 
 steps:
 - task: NuGetToolInstaller@1
@@ -45,7 +49,8 @@ steps:
   inputs:
     command: 'pack'
     packagesToPack: '**/TNArch.DependencyInjection.Convention.'
-    versioningScheme: 'byBuildNumber'
+    versionEnvVar: 'nugetVersion'
+    versioningScheme: 'byEnvVar'
 
 - task: NuGetCommand@2
   inputs:
